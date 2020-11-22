@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="design_bottom_sheet_peek_height_min">100dp</dimen>
+</resources>
