@@ -4,6 +4,22 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+    //签名配置
+    signingConfigs {
+        debugConfig {
+            keyAlias "key"
+            keyPassword "123456"
+            storeFile file("./key/key.jks")
+            storePassword "123456"
+        }
+
+        releaseConfig {
+            keyAlias "zhiyunduo"
+            keyPassword "key"
+            storeFile file("./key/key.jks")
+            storePassword "123456"
+        }
+    }
     defaultConfig {
         applicationId "com.zwl.mybehaviordemo"
         minSdkVersion 16
@@ -12,11 +28,21 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","x86_64"
+        }
     }
 
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debugConfig
+        }
+
         release {
             minifyEnabled false
+            signingConfig signingConfigs.releaseConfig
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -33,4 +59,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+
+
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.0"
+    implementation "io.reactivex.rxjava2:rxjava:2.2.3"
+
+    implementation 'com.amap.api:3dmap:latest.integration'
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
 }

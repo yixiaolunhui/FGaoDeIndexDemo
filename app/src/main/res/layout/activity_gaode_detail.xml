@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:gravity="center"
                 android:text="我的头部"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/darker_gray"
                 android:textSize="30sp"
                 android:layout_height="100dp"
                 android:layout_alignParentBottom="true"

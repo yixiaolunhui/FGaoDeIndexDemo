@@ -25,4 +25,5 @@ public class MainActivity extends AppCompatActivity {
     public void onGaodeDetail(View view) {
         startActivity(new Intent(this, GaoDeDetailActivity.class));
     }
+
 }

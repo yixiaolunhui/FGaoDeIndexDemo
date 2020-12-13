@@ -8,10 +8,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.TextureMapView;
+import com.gyf.immersionbar.ImmersionBar;
 import com.zwl.mybehaviordemo.R;
-import com.zwl.mybehaviordemo.utils.RecyclerDataUtils;
 
 /**
  * 高德地图首页
@@ -19,15 +20,24 @@ import com.zwl.mybehaviordemo.utils.RecyclerDataUtils;
 public class GaoDeIndexActivity extends AppCompatActivity {
 
     private static final String TAG = "GaoDeIndexActivity";
+    private TextureMapView mapView;
+    private AMap aMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("高德首页");
-
         setContentView(R.layout.activity_gaode_index);
-        RecyclerView recyclerview = findViewById(R.id.recyclerview);
-        RecyclerDataUtils.setRecyclerAdater(this, recyclerview, "测试数据", 50);
+        ImmersionBar.with(this)
+                .statusBarDarkFont(true)
+                .fitsSystemWindows(false)
+                .init();
+        mapView = findViewById(R.id.map);
+        mapView.onCreate(savedInstanceState);
+        //初始化地图控制器对象
+        if (aMap == null) {
+            aMap = mapView.getMap();
+        }
 
 
         ViewGroup bottom_sheet = findViewById(R.id.bottom_sheet);
@@ -73,5 +83,35 @@ public class GaoDeIndexActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mapView != null) {
+            mapView.onResume();
+        }
+    }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mapView != null) {
+            mapView.onSaveInstanceState(outState);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mapView != null) {
+            mapView.onDestroy();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mapView != null) {
+            mapView.onPause();
+        }
+    }
 }
