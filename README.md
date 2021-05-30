@@ -1,4 +1,8 @@
-# MyBehaviorDemo
-高德首页
+#高德首页
 
-![image](https://github.com/dalong982242260/MyBehaviorDemo/blob/dev/mp4/show.gif?raw=true)
+
+![image](https://github.com/yixiaolunhui/FGaoDeIndexDemo/blob/master/gif/gaode.gif?raw=true)
+
+#实现的效果
+
+![image](https://github.com/yixiaolunhui/FGaoDeIndexDemo/blob/master/gif/fgaode.gif?raw=true)

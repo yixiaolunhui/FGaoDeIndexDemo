@@ -15,6 +15,7 @@ import com.zwl.mybehaviordemo.utils.RecyclerDataUtils;
 
 /**
  * 高德地址详情滑动效果
+ *
  */
 public class GaoDeDetailActivity extends AppCompatActivity {
     private static final String TAG = "GaoDeDetailActivity";

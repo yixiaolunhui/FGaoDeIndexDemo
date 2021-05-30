@@ -11,7 +11,11 @@ import androidx.core.view.ViewCompat;
 
 import com.zwl.mybehaviordemo.R;
 
-
+/**
+ * 高德首页按钮处理
+ *
+ * @author yixiaolunhui
+ */
 public class GaoDeBtnBehavior extends CoordinatorLayout.Behavior {
 
     private View rightActions;

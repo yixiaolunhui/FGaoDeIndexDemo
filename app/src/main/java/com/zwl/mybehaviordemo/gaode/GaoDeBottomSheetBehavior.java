@@ -12,7 +12,6 @@ import android.os.Build.VERSION;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -45,7 +44,7 @@ import java.util.Map;
 /**
  * 高德首页滑动效果
  *
- * @author zhouweilong
+ * @author yixiaolunhui
  */
 public class GaoDeBottomSheetBehavior<V extends View> extends CoordinatorLayout.Behavior<V> {
     public static final int STATE_DRAGGING = 1;
@@ -104,9 +103,9 @@ public class GaoDeBottomSheetBehavior<V extends View> extends CoordinatorLayout.
             this.setPeekHeight(a.getDimensionPixelSize(R.styleable.BottomSheetBehavior_Layout_behavior_peekHeight, -1));
         }
 
-        this.setHideable(a.getBoolean(R.styleable.BottomSheetBehavior_Layout_behavior_hideable, false));
+        this.setHideable(a.getBoolean(R.styleable.BottomSheetBehavior_Layout_behavior_hideAble, false));
         this.setFitToContents(a.getBoolean(R.styleable.BottomSheetBehavior_Layout_behavior_fitToContents, true));
-        this.setSkipCollapsed(a.getBoolean(R.styleable.BottomSheetBehavior_Layout_behavior_skipCollapsed, false));
+        this.setSkipCollapsed(a.getBoolean(R.styleable.BottomSheetBehavior_Layout_behavior_skipCollapse, false));
         setMiddleHeight(a.getDimensionPixelSize(R.styleable.BottomSheetBehavior_Layout_behavior_middleHeight, MIDDLE_HEIGHT_AUTO));
 
         a.recycle();
@@ -151,12 +150,10 @@ public class GaoDeBottomSheetBehavior<V extends View> extends CoordinatorLayout.
 
         @Override
         public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
-            Log.e("888888888", "------------onViewReleased-----------yvel=" + yvel);
             int top;
             byte targetState;
             int currentTop;
             if (yvel < 0.0F) {
-                Log.e("888888888", "------------onViewReleased------if-----");
                 if (GaoDeBottomSheetBehavior.this.fitToContents) {
                     currentTop = releasedChild.getTop();
 
@@ -179,10 +176,16 @@ public class GaoDeBottomSheetBehavior<V extends View> extends CoordinatorLayout.
                     }
                 }
             } else if (!GaoDeBottomSheetBehavior.this.hideable || !GaoDeBottomSheetBehavior.this.shouldHide(releasedChild, yvel) || releasedChild.getTop() <= GaoDeBottomSheetBehavior.this.collapsedOffset && Math.abs(xvel) >= Math.abs(yvel)) {
-                Log.e("888888888", "------------onViewReleased------else if-----");
                 if (yvel != 0.0F && Math.abs(xvel) <= Math.abs(yvel)) {
-                    top = GaoDeBottomSheetBehavior.this.collapsedOffset;
-                    targetState = STATE_COLLAPSED;
+                    currentTop = releasedChild.getTop();
+                    if (currentTop < halfExpandedOffset) {
+                        top = GaoDeBottomSheetBehavior.this.halfExpandedOffset;
+                        targetState = STATE_HALF_EXPANDED;
+                    } else {
+                        top = GaoDeBottomSheetBehavior.this.collapsedOffset;
+                        targetState = STATE_COLLAPSED;
+                    }
+
                 } else {
                     currentTop = releasedChild.getTop();
                     if (GaoDeBottomSheetBehavior.this.fitToContents) {
@@ -210,7 +213,6 @@ public class GaoDeBottomSheetBehavior<V extends View> extends CoordinatorLayout.
                     }
                 }
             } else {
-                Log.e("888888888", "------------onViewReleased------else -----");
                 top = GaoDeBottomSheetBehavior.this.parentHeight;
                 targetState = STATE_HIDDEN;
             }
@@ -475,7 +477,6 @@ public class GaoDeBottomSheetBehavior<V extends View> extends CoordinatorLayout.
                 if (currentTop <= halfExpandedOffset + HIDE_THRESHOLD && currentTop > HIDE_THRESHOLD) {
                     top = this.halfExpandedOffset;
                     targetState = STATE_HALF_EXPANDED;
-
                 } else {
                     top = this.collapsedOffset;
                     targetState = STATE_COLLAPSED;

@@ -3,8 +3,8 @@
 
     <declare-styleable name="BottomSheetBehavior_Layout">
         <attr name="behavior_peekHeight" format="dimension" />
-        <attr name="behavior_hideable" format="boolean" />
-        <attr name="behavior_skipCollapsed" format="dimension" />
+        <attr name="behavior_hideAble" format="boolean" />
+        <attr name="behavior_skipCollapse" format="dimension" />
         <attr name="behavior_middleHeight" format="dimension" />
         <attr name="behavior_fitToContents" format="boolean" />
     </declare-styleable>
